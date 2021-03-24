@@ -37,30 +37,28 @@ const stickerColumnStyleHidden = {
 
 const Column = (props) => {
   return (
-    <Droppable droppableId={props.id}>
-      {(provided, snapshot) => (
-        <div style={props.show ? {} : stickerColumnStyleHidden}>
-          <div
-            style={snapshot.isDraggingOver ? itemStyleActive : itemStyle}
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-          >
-            <h6 style={dateStyle}>{props.id}</h6>
-            {props.data.map((item, index) => (
-              <Sticker
-                key={item.id}
-                index={index}
-                id={item.id}
-                color={item.color}
-                icon={item.icon}
-                day={props.id}
-              />
-            ))}
-            {provided.placeholder}
+    <div style={itemStyle}>
+      <h6 style={dateStyle}>{props.id}</h6>
+      <Droppable droppableId={props.id}>
+        {(provided, snapshot) => (
+          <div style={props.show ? {} : stickerColumnStyleHidden}>
+            <div ref={provided.innerRef} {...provided.droppableProps}>
+              {props.data.map((item, index) => (
+                <Sticker
+                  key={item.id}
+                  index={index}
+                  id={item.id}
+                  color={item.color}
+                  icon={item.icon}
+                  day={props.id}
+                />
+              ))}
+              {provided.placeholder}
+            </div>
           </div>
-        </div>
-      )}
-    </Droppable>
+        )}
+      </Droppable>
+    </div>
   );
 };
 
